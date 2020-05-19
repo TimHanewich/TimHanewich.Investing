@@ -1,21 +1,25 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\TaHan\\Documents\\GitHub\\TimHanewich.Investing\\TimHanewich.Investing.csproj": {}
+    "C:\\Users\\tihanewi\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj": {}
   },
   "projects": {
-    "C:\\Users\\TaHan\\Documents\\GitHub\\TimHanewich.Investing\\TimHanewich.Investing.csproj": {
-      "version": "1.0.0",
+    "C:\\Users\\tihanewi\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj": {
+      "version": "2.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\TaHan\\Documents\\GitHub\\TimHanewich.Investing\\TimHanewich.Investing.csproj",
+        "projectUniqueName": "C:\\Users\\tihanewi\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj",
         "projectName": "TimHanewich.Investing",
-        "projectPath": "C:\\Users\\TaHan\\Documents\\GitHub\\TimHanewich.Investing\\TimHanewich.Investing.csproj",
-        "packagesPath": "C:\\Users\\TaHan\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\TaHan\\Documents\\GitHub\\TimHanewich.Investing\\obj\\",
+        "projectPath": "C:\\Users\\tihanewi\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj",
+        "packagesPath": "C:\\Users\\tihanewi\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\tihanewi\\Downloads\\TimHanewich.Investing\\obj\\",
         "projectStyle": "PackageReference",
+        "fallbackFolders": [
+          "C:\\Microsoft\\Xamarin\\NuGet\\"
+        ],
         "configFilePaths": [
-          "C:\\Users\\TaHan\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
+          "C:\\Users\\tihanewi\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
@@ -43,6 +47,14 @@
               "target": "Package",
               "version": "[2.0.3, )",
               "autoReferenced": true
+            },
+            "Newtonsoft.Json": {
+              "target": "Package",
+              "version": "[12.0.3, )"
+            },
+            "Yahoo.Finance": {
+              "target": "Package",
+              "version": "[2.0.0, )"
             }
           },
           "imports": [

@@ -2,10 +2,10 @@
 
   <PropertyGroup>
     <TargetFramework>netstandard2.0</TargetFramework>
-    <Version>1</Version>
+    <Version>2</Version>
     <Authors>Tim Hanewich</Authors>
     <Company>Tim Hanewich</Company>
-    <Description />
+    <Description>Investing toolkit creating by Tim Hanewich</Description>
     <PackageIcon>BullIcon.jpg</PackageIcon>
     <AssemblyVersion>0.0.0.0</AssemblyVersion>
     <FileVersion>0.0.0.0</FileVersion>
@@ -18,6 +18,11 @@
       <Pack>True</Pack>
       <PackagePath></PackagePath>
     </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Newtonsoft.Json" Version="12.0.3" />
+    <PackageReference Include="Yahoo.Finance" Version="2.0.0" />
   </ItemGroup>
 
 </Project>
