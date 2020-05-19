@@ -44,7 +44,7 @@
           "lib/netstandard2.0/TimHanewichToolkit.dll": {}
         }
       },
-      "Yahoo.Finance/2.0.0": {
+      "Yahoo.Finance/3.0.0": {
         "type": "package",
         "dependencies": {
           "TimHanewichToolkit": "1.0.0"
@@ -247,16 +247,16 @@
         "timhanewichtoolkit.nuspec"
       ]
     },
-    "Yahoo.Finance/2.0.0": {
-      "sha512": "3TAXO+EhnRRg7MS8vhM+C3o13SKhrccxKgFfDmGv5wisB2P0PwNMEMQPvJPF3A+75SxEzhWQuhXElUvfmhtvkA==",
+    "Yahoo.Finance/3.0.0": {
+      "sha512": "yDpnMUhSF5PV0OQ7/bxuRW6eTZBGULYfTF/+Eevd30YDeFoqJ/+dFzBsoHIE5L0Laf/FL6/UMIQ5cQwaw0QNug==",
       "type": "package",
-      "path": "yahoo.finance/2.0.0",
+      "path": "yahoo.finance/3.0.0",
       "files": [
         ".nupkg.metadata",
         ".signature.p7s",
         "YahooLogo.png",
         "lib/netstandard2.0/Yahoo.Finance.dll",
-        "yahoo.finance.2.0.0.nupkg.sha512",
+        "yahoo.finance.3.0.0.nupkg.sha512",
         "yahoo.finance.nuspec"
       ]
     }
@@ -265,29 +265,24 @@
     ".NETStandard,Version=v2.0": [
       "NETStandard.Library >= 2.0.3",
       "Newtonsoft.Json >= 12.0.3",
-      "Yahoo.Finance >= 2.0.0"
+      "Yahoo.Finance >= 3.0.0"
     ]
   },
   "packageFolders": {
-    "C:\\Users\\tihanewi\\.nuget\\packages\\": {},
-    "C:\\Microsoft\\Xamarin\\NuGet\\": {}
+    "C:\\Users\\TaHan\\.nuget\\packages\\": {}
   },
   "project": {
-    "version": "2.0.0",
+    "version": "3.0.0",
     "restore": {
-      "projectUniqueName": "C:\\Users\\tihanewi\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj",
+      "projectUniqueName": "C:\\Users\\TaHan\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj",
       "projectName": "TimHanewich.Investing",
-      "projectPath": "C:\\Users\\tihanewi\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj",
-      "packagesPath": "C:\\Users\\tihanewi\\.nuget\\packages\\",
-      "outputPath": "C:\\Users\\tihanewi\\Downloads\\TimHanewich.Investing\\obj\\",
+      "projectPath": "C:\\Users\\TaHan\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj",
+      "packagesPath": "C:\\Users\\TaHan\\.nuget\\packages\\",
+      "outputPath": "C:\\Users\\TaHan\\Downloads\\TimHanewich.Investing\\obj\\",
       "projectStyle": "PackageReference",
-      "fallbackFolders": [
-        "C:\\Microsoft\\Xamarin\\NuGet\\"
-      ],
       "configFilePaths": [
-        "C:\\Users\\tihanewi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-        "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+        "C:\\Users\\TaHan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+        "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
       ],
       "originalTargetFrameworks": [
         "netstandard2.0"
@@ -322,7 +317,7 @@
           },
           "Yahoo.Finance": {
             "target": "Package",
-            "version": "[2.0.0, )"
+            "version": "[3.0.0, )"
           }
         },
         "imports": [

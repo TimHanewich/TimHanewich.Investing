@@ -7,11 +7,11 @@
   "targets": {
     ".NETStandard,Version=v2.0": {},
     ".NETStandard,Version=v2.0/": {
-      "TimHanewich.Investing/2": {
+      "TimHanewich.Investing/3": {
         "dependencies": {
           "NETStandard.Library": "2.0.3",
           "Newtonsoft.Json": "12.0.3",
-          "Yahoo.Finance": "2.0.0"
+          "Yahoo.Finance": "3.0.0"
         },
         "runtime": {
           "TimHanewich.Investing.dll": {}
@@ -39,7 +39,7 @@
           }
         }
       },
-      "Yahoo.Finance/2.0.0": {
+      "Yahoo.Finance/3.0.0": {
         "dependencies": {
           "TimHanewichToolkit": "1.0.0"
         },
@@ -53,7 +53,7 @@
     }
   },
   "libraries": {
-    "TimHanewich.Investing/2": {
+    "TimHanewich.Investing/3": {
       "type": "project",
       "serviceable": false,
       "sha512": ""
@@ -86,12 +86,12 @@
       "path": "timhanewichtoolkit/1.0.0",
       "hashPath": "timhanewichtoolkit.1.0.0.nupkg.sha512"
     },
-    "Yahoo.Finance/2.0.0": {
+    "Yahoo.Finance/3.0.0": {
       "type": "package",
       "serviceable": true,
-      "sha512": "sha512-3TAXO+EhnRRg7MS8vhM+C3o13SKhrccxKgFfDmGv5wisB2P0PwNMEMQPvJPF3A+75SxEzhWQuhXElUvfmhtvkA==",
-      "path": "yahoo.finance/2.0.0",
-      "hashPath": "yahoo.finance.2.0.0.nupkg.sha512"
+      "sha512": "sha512-yDpnMUhSF5PV0OQ7/bxuRW6eTZBGULYfTF/+Eevd30YDeFoqJ/+dFzBsoHIE5L0Laf/FL6/UMIQ5cQwaw0QNug==",
+      "path": "yahoo.finance/3.0.0",
+      "hashPath": "yahoo.finance.3.0.0.nupkg.sha512"
     }
   }
 }

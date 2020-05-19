@@ -1,25 +1,21 @@
 {
   "format": 1,
   "restore": {
-    "C:\\Users\\tihanewi\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj": {}
+    "C:\\Users\\TaHan\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj": {}
   },
   "projects": {
-    "C:\\Users\\tihanewi\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj": {
-      "version": "2.0.0",
+    "C:\\Users\\TaHan\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj": {
+      "version": "3.0.0",
       "restore": {
-        "projectUniqueName": "C:\\Users\\tihanewi\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj",
+        "projectUniqueName": "C:\\Users\\TaHan\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj",
         "projectName": "TimHanewich.Investing",
-        "projectPath": "C:\\Users\\tihanewi\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj",
-        "packagesPath": "C:\\Users\\tihanewi\\.nuget\\packages\\",
-        "outputPath": "C:\\Users\\tihanewi\\Downloads\\TimHanewich.Investing\\obj\\",
+        "projectPath": "C:\\Users\\TaHan\\Downloads\\TimHanewich.Investing\\TimHanewich.Investing.csproj",
+        "packagesPath": "C:\\Users\\TaHan\\.nuget\\packages\\",
+        "outputPath": "C:\\Users\\TaHan\\Downloads\\TimHanewich.Investing\\obj\\",
         "projectStyle": "PackageReference",
-        "fallbackFolders": [
-          "C:\\Microsoft\\Xamarin\\NuGet\\"
-        ],
         "configFilePaths": [
-          "C:\\Users\\tihanewi\\AppData\\Roaming\\NuGet\\NuGet.Config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config",
-          "C:\\Program Files (x86)\\NuGet\\Config\\Xamarin.Offline.config"
+          "C:\\Users\\TaHan\\AppData\\Roaming\\NuGet\\NuGet.Config",
+          "C:\\Program Files (x86)\\NuGet\\Config\\Microsoft.VisualStudio.Offline.config"
         ],
         "originalTargetFrameworks": [
           "netstandard2.0"
@@ -54,7 +50,7 @@
             },
             "Yahoo.Finance": {
               "target": "Package",
-              "version": "[2.0.0, )"
+              "version": "[3.0.0, )"
             }
           },
           "imports": [
