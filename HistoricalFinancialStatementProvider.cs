@@ -11,6 +11,9 @@ using System.Reflection;
 
 namespace TimHanewich.Investing
 {
+    /// <summary>
+    /// Provides all historical financial statements (10-K or 10-Q) of a company and then writes this to a CSV file.
+    /// </summary>
     public class HistoricalFinancialStatementProvider
     {
         public async Task<FinancialStatement[]> GetFinancialStatementsAsync(string symbol, string filing_type)
