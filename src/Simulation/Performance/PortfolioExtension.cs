@@ -25,7 +25,7 @@ namespace TimHanewich.Investing.Simulation.Performance
             {
                 if (ct.ChangeType == CashTransactionType.Expense)
                 {
-                    ExpensesPaid = ExpensesPaid + ct.CashChange;
+                    ExpensesPaid = ExpensesPaid + Math.Abs(ct.CashChange);
                 }
             }
 
