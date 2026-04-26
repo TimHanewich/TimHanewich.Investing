@@ -3,7 +3,7 @@ using System;
 namespace TimHanewich.Investing.Simulation
 {
     //This represents gain/loss performance for an individual stock.
-    //Placed this on hold as of 5/24/2020 while a FIFO/LIFO method for recording stock purchases and sales is created in the core SimulatedPortfolio class.
+    //Placed this on hold as of 5/24/2020 while a FIFO/LIFO method for recording stock purchases and sales is created in the core Portfolio class.
     public class HoldingPerformance
     {
         public string Symbol {get; set;}

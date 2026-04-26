@@ -6,7 +6,7 @@ using TimHanewich.Investing;
 
 namespace TimHanewich.Investing.Simulation
 {
-    public class SimulatedPortfolio
+    public class Portfolio
     {
         public Guid Id { get; set;  }
         public DateTimeOffset CreatedOn { get; set;  }
@@ -52,9 +52,9 @@ namespace TimHanewich.Investing.Simulation
             }
         }
 
-        public static SimulatedPortfolio Create(string ownername = "")
+        public static Portfolio Create(string ownername = "")
         {
-            SimulatedPortfolio ReturnInstance = new SimulatedPortfolio();
+            Portfolio ReturnInstance = new Portfolio();
 
             ReturnInstance.Id = Guid.NewGuid();
             ReturnInstance.EquityTransactionLog = new List<EquityTransaction>();
