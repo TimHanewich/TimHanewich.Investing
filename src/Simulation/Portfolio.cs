@@ -9,14 +9,14 @@ namespace TimHanewich.Investing.Simulation
     public class Portfolio
     {
         public float Cash { get; set; }
-        public List<EquityTransaction> HoldingTransactionLog { get; set; }
+        public List<HoldingTransaction> HoldingTransactionLog { get; set; }
         public List<CashTransaction> CashTransactionLog { get; set; }
         public float TradeCost {get; set;} //i.e. commission
 
         public Portfolio()
         {
             Cash = 0.00f;
-            HoldingTransactionLog = new List<EquityTransaction>();
+            HoldingTransactionLog = new List<HoldingTransaction>();
             CashTransactionLog = new List<CashTransaction>();
             TradeCost = 0.00f;
         }
@@ -26,7 +26,7 @@ namespace TimHanewich.Investing.Simulation
             Dictionary<string, int> quantities = new Dictionary<string, int>();
             Dictionary<string, float> totalCost = new Dictionary<string, float>();
             Dictionary<string, int> totalBought = new Dictionary<string, int>();
-            foreach (EquityTransaction et in HoldingTransactionLog)
+            foreach (HoldingTransaction et in HoldingTransactionLog)
             {
                 string sym = et.Symbol.ToUpper().Trim();
                 if (!quantities.ContainsKey(sym))
@@ -104,7 +104,7 @@ namespace TimHanewich.Investing.Simulation
                 }
 
                 //Log the transaction
-                EquityTransaction et = new EquityTransaction();
+                HoldingTransaction et = new HoldingTransaction();
                 et.TransactedAt = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
                 et.Symbol = symbol.ToUpper().Trim();
                 et.OrderType = TransactionType.Buy;
@@ -141,7 +141,7 @@ namespace TimHanewich.Investing.Simulation
                 }
 
                 //Log the transaction
-                EquityTransaction et = new EquityTransaction();
+                HoldingTransaction et = new HoldingTransaction();
                 et.UpdateTransactionTime();
                 et.Symbol = symbol.ToUpper().Trim();
                 et.OrderType = TransactionType.Sell;

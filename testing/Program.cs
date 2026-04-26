@@ -10,6 +10,12 @@ namespace Testing
     {
         public static void Main(string[] args)
         {
+            
+            
+        }
+
+        public static async Task Test1()
+        {
             Portfolio sp = new Portfolio();
             sp.TradeCost = 7;
 
@@ -25,6 +31,12 @@ namespace Testing
             Console.WriteLine("Calculating performance...");
             PortflioPerformance pp = sp.CalculatePerformanceAsync().Result;
             Console.WriteLine(JsonConvert.SerializeObject(pp, Formatting.Indented));
+        }
+
+        public static async Task Test2()
+        {
+            Portfolio p = new Portfolio();
+            
         }
     }
 }
