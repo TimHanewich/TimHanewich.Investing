@@ -12,17 +12,51 @@ namespace TimHanewich.Investing.Simulation
         public DateTimeOffset CreatedOn { get; set;  }
         public string Owner { get; set; }
         public float Cash { get; set; }
-        public List<EquityHolding> EquityHoldings { get; set; }
         public List<EquityTransaction> EquityTransactionLog { get; set; }
         public List<CashTransaction> CashTransactionLog { get; set; }
         public float TradeCost {get; set;} //i.e. commission
+
+        public EquityHolding[] EquityHoldings
+        {
+            get
+            {
+                Dictionary<string, int> quantities = new Dictionary<string, int>();
+                foreach (EquityTransaction et in EquityTransactionLog)
+                {
+                    string sym = et.Symbol.ToUpper().Trim();
+                    if (!quantities.ContainsKey(sym))
+                    {
+                        quantities[sym] = 0;
+                    }
+                    if (et.OrderType == TransactionType.Buy)
+                    {
+                        quantities[sym] += et.Quantity;
+                    }
+                    else if (et.OrderType == TransactionType.Sell)
+                    {
+                        quantities[sym] -= et.Quantity;
+                    }
+                }
+                List<EquityHolding> holdings = new List<EquityHolding>();
+                foreach (var kvp in quantities)
+                {
+                    if (kvp.Value > 0)
+                    {
+                        EquityHolding eh = new EquityHolding();
+                        eh.Symbol = kvp.Key;
+                        eh.Quantity = kvp.Value;
+                        holdings.Add(eh);
+                    }
+                }
+                return holdings.ToArray();
+            }
+        }
 
         public static SimulatedPortfolio Create(string ownername = "")
         {
             SimulatedPortfolio ReturnInstance = new SimulatedPortfolio();
 
             ReturnInstance.Id = Guid.NewGuid();
-            ReturnInstance.EquityHoldings = new List<EquityHolding>();
             ReturnInstance.EquityTransactionLog = new List<EquityTransaction>();
             ReturnInstance.CashTransactionLog = new List<CashTransaction>();
             ReturnInstance.CreatedOn = DateTimeOffset.Now;
@@ -73,10 +107,16 @@ namespace TimHanewich.Investing.Simulation
                     throw new Exception("You do not have enough cash to execute this buy order of " + symbol.ToUpper() + ".  Cash needed: $" + cash_needed.ToString("#,##0.00") + ".  Cash balance: $" + Cash.ToString("#,##0.00"));
                 }
 
+                //Log the transaction
+                EquityTransaction et = new EquityTransaction();
+                et.TransactedAt = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                et.Symbol = symbol.ToUpper().Trim();
+                et.OrderType = TransactionType.Buy;
+                et.Quantity = quantity;
+                et.ExecutedPrice = e.Summary.Price;
+                EquityTransactionLog.Add(et);
 
-                AddShares(symbol.ToUpper().Trim(), quantity, e.Summary.Price, DateTimeOffset.Now);
-
-                //Edit cash and add the shares we are buying to the balane
+                //Deduct cash
                 Cash = Cash - cash_needed;
 
             }
@@ -104,11 +144,7 @@ namespace TimHanewich.Investing.Simulation
                     throw new Exception("You do not have " + quantity.ToString() + " shares to sell!  You only have " + eh.Quantity.ToString() + " shares.");
                 }
 
-                //Execute the transaction
-                Cash = Cash + (quantity * e.Summary.Price);
-                eh.Quantity = eh.Quantity - quantity;
-
-                //Save the transaction log
+                //Log the transaction
                 EquityTransaction et = new EquityTransaction();
                 et.UpdateTransactionTime();
                 et.Symbol = symbol.ToUpper().Trim();
@@ -117,11 +153,8 @@ namespace TimHanewich.Investing.Simulation
                 et.ExecutedPrice = e.Summary.Price;
                 EquityTransactionLog.Add(et);
 
-                //Remove the holding if it now 0
-                if (eh.Quantity == 0)
-                {
-                    EquityHoldings.Remove(eh);
-                }
+                //Credit cash
+                Cash = Cash + (quantity * e.Summary.Price);
             }
 
             //Take out the commission (if any)
@@ -187,7 +220,7 @@ namespace TimHanewich.Investing.Simulation
             List<EquityHoldingPerformance> ToReturn = new List<EquityHoldingPerformance>();
 
             //Check if there are no holdings
-            if (EquityHoldings.Count == 0)
+            if (EquityHoldings.Length == 0)
             {
                 return ToReturn.ToArray(); 
             }
@@ -292,40 +325,6 @@ namespace TimHanewich.Investing.Simulation
             return ToReturn.ToArray();
         }
     
-        private void AddShares(string symbol, int quantity, float price_per_share, DateTimeOffset purchased_at)
-        {
-            //Check if we already have a holding like this
-            EquityHolding nh = null;
-            foreach (EquityHolding h in EquityHoldings)
-            {
-                if (h.Symbol.ToUpper() == symbol.ToUpper())
-                {
-                    nh = h;
-                }
-            }
-
-            //Create a new one if we couldn't find this holding that already exists.
-            if (nh == null)
-            {
-                nh = new EquityHolding();
-                nh.Symbol = symbol.ToUpper().Trim();
-                nh.Quantity = 0;
-                EquityHoldings.Add(nh);
-            }
-
-            //add the shares we are buying to the balance
-            nh.Quantity = nh.Quantity + quantity;
-
-            //Log the transaction
-            EquityTransaction et = new EquityTransaction();
-            et.TransactedAt = purchased_at.ToUnixTimeSeconds();
-            et.Quantity = quantity;
-            et.Symbol = symbol.ToUpper().Trim();
-            et.OrderType = TransactionType.Buy;
-            et.ExecutedPrice = price_per_share;
-            EquityTransactionLog.Add(et);
-        }
-
         private float CalculateAverageCostBasis(string symbol)
         {
             float totalCost = 0;
