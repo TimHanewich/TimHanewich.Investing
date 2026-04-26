@@ -6,4 +6,8 @@
     <Nullable>enable</Nullable>
   </PropertyGroup>
 
+  <ItemGroup>
+    <PackageReference Include="Yahoo.Finance" Version="4.3.6" />
+  </ItemGroup>
+
 </Project>
