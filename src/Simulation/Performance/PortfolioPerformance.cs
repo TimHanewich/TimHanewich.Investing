@@ -39,7 +39,7 @@ namespace TimHanewich.Investing.Simulation.Performance
             System.Text.StringBuilder sb = new System.Text.StringBuilder();
 
             sb.AppendLine("=== Portfolio Performance ===");
-            sb.AppendLine("Gain: $" + Gain.ToString("#,##0.00"));
+            sb.AppendLine("Gains on Holdings: $" + Gain.ToString("#,##0.00"));
             sb.AppendLine("Expenses Paid: $" + ExpensesPaid.ToString("#,##0.00"));
             sb.AppendLine("Profit: $" + Profit.ToString("#,##0.00"));
 
