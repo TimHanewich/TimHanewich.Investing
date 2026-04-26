@@ -5,13 +5,15 @@ namespace TimHanewich.Investing.Simulation.Performance
     public class PortflioPerformance
     {
         public HoldingPerformance[] HoldingPerformances {get; set;}
+        public float ExpensesPaid {get; set;}
 
         public PortflioPerformance()
         {
             HoldingPerformances = new HoldingPerformance[]{};
         }
 
-        public float Profit
+        //Focuses only on holding gains/losses
+        public float Gain
         {
             get
             {
@@ -21,6 +23,15 @@ namespace TimHanewich.Investing.Simulation.Performance
                     ToReturn = ToReturn + hp.Gain;
                 }
                 return ToReturn;
+            }
+        }
+
+        //Takes into account trade costs as well (i.e. commission)
+        public float Profit
+        {
+            get
+            {
+                return Gain - ExpensesPaid;
             }
         }
     }

@@ -17,12 +17,11 @@ namespace Testing
             sp.TradeAsync("BTC-USD", 1, TransactionType.Buy).Wait();
 
             Console.Write("Waiting... ");
-            System.Threading.Tasks.Task.Delay(5_000).Wait();
+            System.Threading.Tasks.Task.Delay(10_000).Wait();
 
             Console.WriteLine(JsonConvert.SerializeObject(sp, Formatting.Indented));
 
 
-            sp.EquityTransactionLog[0].ExecutedPrice = 50.00f;
             Console.WriteLine("Calculating performance...");
             PortflioPerformance pp = sp.CalculatePerformanceAsync().Result;
             Console.WriteLine(JsonConvert.SerializeObject(pp, Formatting.Indented));

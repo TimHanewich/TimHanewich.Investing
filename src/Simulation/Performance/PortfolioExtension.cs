@@ -19,8 +19,19 @@ namespace TimHanewich.Investing.Simulation.Performance
                 performances.Add(new HoldingPerformance(h, eq.Summary.Price));
             }
 
+            //Calculate expenses paid total
+            float ExpensesPaid = 0.00f;
+            foreach (CashTransaction ct in portfolio.CashTransactionLog)
+            {
+                if (ct.ChangeType == CashTransactionType.Expense)
+                {
+                    ExpensesPaid = ExpensesPaid + ct.CashChange;
+                }
+            }
+
             PortflioPerformance pp = new PortflioPerformance();
             pp.HoldingPerformances = performances.ToArray();
+            pp.ExpensesPaid = ExpensesPaid;
             return pp;
         }
     }
