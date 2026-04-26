@@ -10,7 +10,7 @@ namespace TimHanewich.Investing.Simulation.Performance
         {
             get
             {
-                return (CurrentPrice - AverageCostBasis) * Quantity;
+                return (CurrentPrice - CostBasis) * Quantity;
             }
         }
 
@@ -18,7 +18,7 @@ namespace TimHanewich.Investing.Simulation.Performance
         {
             get
             {
-                return Gain / (Quantity * AverageCostBasis);
+                return Gain / (Quantity * CostBasis);
             }
         }
     }

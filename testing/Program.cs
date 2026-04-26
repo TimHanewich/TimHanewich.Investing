@@ -2,6 +2,8 @@
 using TimHanewich.Investing;
 using TimHanewich.Investing.Simulation;
 using Newtonsoft.Json;
+using TimHanewich.Investing.Simulation.Performance;
+
 namespace Testing
 {
     public class Program
@@ -18,6 +20,12 @@ namespace Testing
             System.Threading.Tasks.Task.Delay(5_000).Wait();
 
             Console.WriteLine(JsonConvert.SerializeObject(sp, Formatting.Indented));
+
+
+            sp.EquityTransactionLog[0].ExecutedPrice = 50.00f;
+            Console.WriteLine("Calculating performance...");
+            PortflioPerformance pp = sp.CalculatePerformanceAsync().Result;
+            Console.WriteLine(JsonConvert.SerializeObject(pp, Formatting.Indented));
         }
     }
 }

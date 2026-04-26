@@ -20,7 +20,7 @@ namespace TimHanewich.Investing.Simulation.Performance
                 HoldingPerformance hp = new HoldingPerformance();
                 hp.Symbol = h.Symbol;
                 hp.Quantity = h.Quantity;
-                hp.AverageCostBasis = h.AverageCostBasis;
+                hp.CostBasis = h.CostBasis;
                 hp.CurrentPrice = eq.Summary.Price;
                 performances.Add(hp);
             }

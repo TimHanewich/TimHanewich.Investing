@@ -9,14 +9,14 @@ namespace TimHanewich.Investing.Simulation
     public class Portfolio
     {
         public float Cash { get; set; }
-        public List<EquityTransaction> EquityTransactionLog { get; set; }
+        public List<EquityTransaction> HoldingTransactionLog { get; set; }
         public List<CashTransaction> CashTransactionLog { get; set; }
         public float TradeCost {get; set;} //i.e. commission
 
         public Portfolio()
         {
             Cash = 0.00f;
-            EquityTransactionLog = new List<EquityTransaction>();
+            HoldingTransactionLog = new List<EquityTransaction>();
             CashTransactionLog = new List<CashTransaction>();
             TradeCost = 0.00f;
         }
@@ -26,7 +26,7 @@ namespace TimHanewich.Investing.Simulation
             Dictionary<string, int> quantities = new Dictionary<string, int>();
             Dictionary<string, float> totalCost = new Dictionary<string, float>();
             Dictionary<string, int> totalBought = new Dictionary<string, int>();
-            foreach (EquityTransaction et in EquityTransactionLog)
+            foreach (EquityTransaction et in HoldingTransactionLog)
             {
                 string sym = et.Symbol.ToUpper().Trim();
                 if (!quantities.ContainsKey(sym))
@@ -54,7 +54,7 @@ namespace TimHanewich.Investing.Simulation
                     Holding eh = new Holding();
                     eh.Symbol = kvp.Key;
                     eh.Quantity = kvp.Value;
-                    eh.AverageCostBasis = totalBought[kvp.Key] > 0 ? totalCost[kvp.Key] / totalBought[kvp.Key] : 0;
+                    eh.CostBasis = totalBought[kvp.Key] > 0 ? totalCost[kvp.Key] / totalBought[kvp.Key] : 0;
                     holdings.Add(eh);
                 }
             }
@@ -110,7 +110,7 @@ namespace TimHanewich.Investing.Simulation
                 et.OrderType = TransactionType.Buy;
                 et.Quantity = quantity;
                 et.ExecutedPrice = e.Summary.Price;
-                EquityTransactionLog.Add(et);
+                HoldingTransactionLog.Add(et);
 
                 //Deduct cash
                 EditCash(cash_needed * -1, CashTransactionType.Transaction);
@@ -147,7 +147,7 @@ namespace TimHanewich.Investing.Simulation
                 et.OrderType = TransactionType.Sell;
                 et.Quantity = quantity;
                 et.ExecutedPrice = e.Summary.Price;
-                EquityTransactionLog.Add(et);
+                HoldingTransactionLog.Add(et);
 
                 //Credit cash
                 EditCash(quantity * e.Summary.Price, CashTransactionType.Transaction);
