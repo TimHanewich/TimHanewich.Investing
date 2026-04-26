@@ -74,7 +74,7 @@ namespace TimHanewich.Investing.Simulation
                 }
 
 
-                AddSharesAndCalculateNewAverageCostBasis(symbol.ToUpper().Trim(), quantity, e.Summary.Price, DateTimeOffset.Now);
+                AddShares(symbol.ToUpper().Trim(), quantity, e.Summary.Price, DateTimeOffset.Now);
 
                 //Edit cash and add the shares we are buying to the balane
                 Cash = Cash - cash_needed;
@@ -111,10 +111,10 @@ namespace TimHanewich.Investing.Simulation
                 //Save the transaction log
                 EquityTransaction et = new EquityTransaction();
                 et.UpdateTransactionTime();
-                et.StockSymbol = symbol.ToUpper().Trim();
+                et.Symbol = symbol.ToUpper().Trim();
                 et.OrderType = TransactionType.Sell;
                 et.Quantity = quantity;
-                et.PriceExecutedAt = e.Summary.Price;
+                et.ExecutedPrice = e.Summary.Price;
                 EquityTransactionLog.Add(et);
 
                 //Remove the holding if it now 0
@@ -272,7 +272,7 @@ namespace TimHanewich.Investing.Simulation
                 ehp.Symbol = s.Trim().ToUpper();
 
                 //Get dollars invested
-                ehp.DollarsInvested = eh.AverageCostBasis * eh.Quantity;
+                ehp.DollarsInvested = CalculateAverageCostBasis(s) * eh.Quantity;
 
                 //Get holding value
                 ehp.HoldingValue = eh.Quantity * esd.Price;
@@ -292,7 +292,7 @@ namespace TimHanewich.Investing.Simulation
             return ToReturn.ToArray();
         }
     
-        private void AddSharesAndCalculateNewAverageCostBasis(string symbol, int quantity, float price_per_share, DateTimeOffset purchased_at)
+        private void AddShares(string symbol, int quantity, float price_per_share, DateTimeOffset purchased_at)
         {
             //Check if we already have a holding like this
             EquityHolding nh = null;
@@ -310,28 +310,46 @@ namespace TimHanewich.Investing.Simulation
                 nh = new EquityHolding();
                 nh.Symbol = symbol.ToUpper().Trim();
                 nh.Quantity = 0;
-                nh.AverageCostBasis = 0;
                 EquityHoldings.Add(nh);
             }
 
-
-            //Calculate the new Average Per Share Cost basis
-            float CurrentTotalCost = nh.AverageCostBasis * nh.Quantity;
-            float NewTotalCost = price_per_share * quantity;
-            float NewAvgCostBasis = (CurrentTotalCost + NewTotalCost) / (quantity + nh.Quantity);
-            nh.AverageCostBasis = NewAvgCostBasis;
-
-            //add the shares we are buying to the balane
+            //add the shares we are buying to the balance
             nh.Quantity = nh.Quantity + quantity;
 
             //Log the transaction
             EquityTransaction et = new EquityTransaction();
             et.TransactedAt = purchased_at.ToUnixTimeSeconds();
             et.Quantity = quantity;
-            et.StockSymbol = symbol.ToUpper().Trim();
+            et.Symbol = symbol.ToUpper().Trim();
             et.OrderType = TransactionType.Buy;
-            et.PriceExecutedAt = price_per_share;
+            et.ExecutedPrice = price_per_share;
             EquityTransactionLog.Add(et);
+        }
+
+        private float CalculateAverageCostBasis(string symbol)
+        {
+            float totalCost = 0;
+            int totalQuantity = 0;
+            foreach (EquityTransaction et in EquityTransactionLog)
+            {
+                if (et.Symbol.ToUpper().Trim() == symbol.ToUpper().Trim())
+                {
+                    if (et.OrderType == TransactionType.Buy)
+                    {
+                        totalCost += et.ExecutedPrice * et.Quantity;
+                        totalQuantity += et.Quantity;
+                    }
+                    else if (et.OrderType == TransactionType.Sell)
+                    {
+                        totalQuantity -= et.Quantity;
+                    }
+                }
+            }
+            if (totalQuantity == 0)
+            {
+                return 0;
+            }
+            return totalCost / totalQuantity;
         }
     }
 }
