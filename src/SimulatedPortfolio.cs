@@ -326,7 +326,7 @@ namespace TimHanewich.Investing.Simulation
 
             //Log the transaction
             EquityTransaction et = new EquityTransaction();
-            et.TransactedOn = purchased_at;
+            et.TransactedAt = purchased_at.ToUnixTimeSeconds();
             et.Quantity = quantity;
             et.StockSymbol = symbol.ToUpper().Trim();
             et.OrderType = TransactionType.Buy;

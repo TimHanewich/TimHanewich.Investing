@@ -4,11 +4,11 @@ namespace TimHanewich.Investing.Simulation
 {
     public class Transaction
     {
-        public DateTimeOffset TransactedOn { get; set; }
+        public long TransactedAt { get; set; } //UnixTimeSeconds
 
         public void UpdateTransactionTime()
         {
-            TransactedOn = DateTimeOffset.Now;
+            TransactedAt = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
         }
     }
 }
