@@ -165,7 +165,6 @@ namespace TimHanewich.Investing.Simulation
 
             sb.AppendLine("=== Portfolio ===");
             sb.AppendLine("Cash: $" + Cash.ToString("#,##0.00"));
-            sb.AppendLine("Trade Cost: $" + TradeCost.ToString("#,##0.00"));
 
             // Holdings
             Holding[] holdings = Holdings();

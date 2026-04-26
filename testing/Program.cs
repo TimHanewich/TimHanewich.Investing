@@ -10,7 +10,7 @@ namespace Testing
     {
         public static void Main(string[] args)
         {
-            Test2().Wait();
+            Test1().Wait();
             
         }
 
@@ -24,13 +24,13 @@ namespace Testing
 
             Console.Write("Waiting... ");
             System.Threading.Tasks.Task.Delay(10_000).Wait();
-
-            Console.WriteLine(JsonConvert.SerializeObject(sp, Formatting.Indented));
+            Console.WriteLine(sp.ToString());
+            
 
 
             Console.WriteLine("Calculating performance...");
             PortflioPerformance pp = sp.CalculatePerformanceAsync().Result;
-            Console.WriteLine(JsonConvert.SerializeObject(pp, Formatting.Indented));
+            Console.WriteLine(pp.ToString());
         }
 
         public static async Task Test2()
@@ -51,11 +51,10 @@ namespace Testing
             ht2.TransactedAt = 0;
             p.HoldingTransactionLog.Add(ht2);
 
-            Holding[] holdings = p.Holdings();
-            Console.WriteLine(JsonConvert.SerializeObject(holdings, Formatting.Indented));
+            Console.WriteLine(p.ToString());
 
             PortflioPerformance pp = await p.CalculatePerformanceAsync();
-            Console.WriteLine(JsonConvert.SerializeObject(pp, Formatting.Indented));
+            Console.WriteLine(pp.ToString());
         }
     }
 }
