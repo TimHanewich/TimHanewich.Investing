@@ -34,5 +34,29 @@ namespace TimHanewich.Investing.Simulation.Performance
                 return Gain - ExpensesPaid;
             }
         }
+        public override string ToString()
+        {
+            System.Text.StringBuilder sb = new System.Text.StringBuilder();
+
+            sb.AppendLine("=== Portfolio Performance ===");
+            sb.AppendLine("Gain: $" + Gain.ToString("#,##0.00"));
+            sb.AppendLine("Expenses Paid: $" + ExpensesPaid.ToString("#,##0.00"));
+            sb.AppendLine("Profit: $" + Profit.ToString("#,##0.00"));
+
+            sb.AppendLine("");
+            sb.AppendLine("--- Holdings (" + HoldingPerformances.Length + ") ---");
+            if (HoldingPerformances.Length == 0)
+            {
+                sb.AppendLine("  (none)");
+            }
+            foreach (HoldingPerformance hp in HoldingPerformances)
+            {
+                string sign = hp.Gain >= 0 ? "+" : "";
+                string pctSign = hp.PercentGain >= 0 ? "+" : "";
+                sb.AppendLine("  " + hp.Holding.Symbol + ": " + hp.Holding.Quantity + " shares | Cost Basis: $" + hp.Holding.CostBasis.ToString("#,##0.00") + " | Current: $" + hp.CurrentPrice.ToString("#,##0.00") + " | Gain: " + sign + "$" + hp.Gain.ToString("#,##0.00") + " (" + pctSign + (hp.PercentGain * 100).ToString("0.00") + "%)");
+            }
+
+            return sb.ToString().TrimEnd();
+        }
     }
 }

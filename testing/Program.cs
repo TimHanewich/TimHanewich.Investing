@@ -10,7 +10,7 @@ namespace Testing
     {
         public static void Main(string[] args)
         {
-            
+            Test2().Wait();
             
         }
 
@@ -36,7 +36,26 @@ namespace Testing
         public static async Task Test2()
         {
             Portfolio p = new Portfolio();
-            
+
+            HoldingTransaction ht = new HoldingTransaction();
+            ht.Symbol = "PG";
+            ht.Quantity = 5;
+            ht.ExecutedPrice = 100.00f;
+            ht.TransactedAt = 0;
+            p.HoldingTransactionLog.Add(ht);
+
+            HoldingTransaction ht2 = new HoldingTransaction();
+            ht2.Symbol = "PG";
+            ht2.Quantity = 5;
+            ht2.ExecutedPrice = 200.00f;
+            ht2.TransactedAt = 0;
+            p.HoldingTransactionLog.Add(ht2);
+
+            Holding[] holdings = p.Holdings();
+            Console.WriteLine(JsonConvert.SerializeObject(holdings, Formatting.Indented));
+
+            PortflioPerformance pp = await p.CalculatePerformanceAsync();
+            Console.WriteLine(JsonConvert.SerializeObject(pp, Formatting.Indented));
         }
     }
 }
