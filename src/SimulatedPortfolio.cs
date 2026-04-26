@@ -4,7 +4,7 @@ using System.Threading.Tasks;
 using Yahoo.Finance;
 using TimHanewich.Investing;
 
-namespace SimulatedInvesting
+namespace TimHanewich.Investing.Simulation
 {
     public class SimulatedPortfolio
     {

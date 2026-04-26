@@ -1,6 +1,6 @@
 using System;
 
-namespace SimulatedInvesting
+namespace TimHanewich.Investing.Simulation
 {
     public class EquityTransaction:Transaction
     {
