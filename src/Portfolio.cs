@@ -8,13 +8,18 @@ namespace TimHanewich.Investing.Simulation
 {
     public class Portfolio
     {
-        public Guid Id { get; set;  }
-        public DateTimeOffset CreatedOn { get; set;  }
-        public string Owner { get; set; }
         public float Cash { get; set; }
         public List<EquityTransaction> EquityTransactionLog { get; set; }
         public List<CashTransaction> CashTransactionLog { get; set; }
         public float TradeCost {get; set;} //i.e. commission
+
+        public Portfolio()
+        {
+            Cash = 0.00f;
+            EquityTransactionLog = new List<EquityTransaction>();
+            CashTransactionLog = new List<CashTransaction>();
+            TradeCost = 0.00f;
+        }
 
         public Holding[] Holdings
         {
@@ -52,19 +57,6 @@ namespace TimHanewich.Investing.Simulation
             }
         }
 
-        public static Portfolio Create(string ownername = "")
-        {
-            Portfolio ReturnInstance = new Portfolio();
-
-            ReturnInstance.Id = Guid.NewGuid();
-            ReturnInstance.EquityTransactionLog = new List<EquityTransaction>();
-            ReturnInstance.CashTransactionLog = new List<CashTransaction>();
-            ReturnInstance.CreatedOn = DateTimeOffset.Now;
-            ReturnInstance.Owner = ownername;
-
-            return ReturnInstance;
-        }
-
         public void EditCash(float cash_edit, CashTransactionType ctt = CashTransactionType.Edit)
         {
             //Error check
@@ -85,7 +77,7 @@ namespace TimHanewich.Investing.Simulation
             CashTransactionLog.Add(ct);
         }
 
-        public async Task TradeEquityAsync(string symbol, int quantity, TransactionType order_type)
+        public async Task TradeAsync(string symbol, int quantity, TransactionType order_type)
         {
             Equity e = Equity.Create(symbol);
             try
