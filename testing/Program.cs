@@ -12,10 +12,10 @@ namespace Testing
             sp.TradeCost = 7;
 
             sp.EditCash(500000);
-            sp.TradeAsync("PG", 1, TransactionType.Buy).Wait();
+            sp.TradeAsync("BTC-USD", 1, TransactionType.Buy).Wait();
 
             Console.Write("Waiting... ");
-            System.Threading.Tasks.Task.Delay(3_000).Wait();
+            System.Threading.Tasks.Task.Delay(5_000).Wait();
 
             Console.WriteLine(JsonConvert.SerializeObject(sp, Formatting.Indented));
         }
