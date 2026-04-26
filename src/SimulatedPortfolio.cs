@@ -143,9 +143,15 @@ namespace TimHanewich.Investing.Simulation
                 }
             }
            
-            //Get the equity data as a batch
-            BatchStockDataProvider bsdp = new BatchStockDataProvider();
-            EquitySummaryData[] esds = await bsdp.GetBatchEquitySummaryData(stocks.ToArray());
+            //Get the equity data
+            List<EquitySummaryData> esdList = new List<EquitySummaryData>();
+            foreach (string symbol in stocks)
+            {
+                Equity eq = Equity.Create(symbol);
+                await eq.DownloadSummaryAsync();
+                esdList.Add(eq.Summary);
+            }
+            EquitySummaryData[] esds = esdList.ToArray();
 
             //Add up our portfolio value
             float PortValue = 0;
@@ -197,8 +203,14 @@ namespace TimHanewich.Investing.Simulation
             }
 
             //Get all stock data
-            BatchStockDataProvider bsdp = new BatchStockDataProvider();
-            EquitySummaryData[] ESDs = await bsdp.GetBatchEquitySummaryData(Stocks.ToArray());
+            List<EquitySummaryData> esdList = new List<EquitySummaryData>();
+            foreach (string symbol in Stocks)
+            {
+                Equity eq = Equity.Create(symbol);
+                await eq.DownloadSummaryAsync();
+                esdList.Add(eq.Summary);
+            }
+            EquitySummaryData[] ESDs = esdList.ToArray();
 
             //Check if we have all of them
             if (Stocks.Count != ESDs.Length)
