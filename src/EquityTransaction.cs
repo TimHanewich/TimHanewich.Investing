@@ -8,5 +8,10 @@ namespace TimHanewich.Investing.Simulation
         public int Quantity { get; set; }                    // quantity of shares
         public TransactionType OrderType { get; set; }
         public float ExecutedPrice {get; set;}
+
+        public EquityTransaction()
+        {
+            Symbol = "";
+        }
     }
 }
