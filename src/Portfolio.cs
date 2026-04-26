@@ -24,16 +24,22 @@ namespace TimHanewich.Investing.Simulation
         public Holding[] Holdings()
         {
             Dictionary<string, int> quantities = new Dictionary<string, int>();
+            Dictionary<string, float> totalCost = new Dictionary<string, float>();
+            Dictionary<string, int> totalBought = new Dictionary<string, int>();
             foreach (EquityTransaction et in EquityTransactionLog)
             {
                 string sym = et.Symbol.ToUpper().Trim();
                 if (!quantities.ContainsKey(sym))
                 {
                     quantities[sym] = 0;
+                    totalCost[sym] = 0;
+                    totalBought[sym] = 0;
                 }
                 if (et.OrderType == TransactionType.Buy)
                 {
                     quantities[sym] += et.Quantity;
+                    totalCost[sym] += et.ExecutedPrice * et.Quantity;
+                    totalBought[sym] += et.Quantity;
                 }
                 else if (et.OrderType == TransactionType.Sell)
                 {
@@ -48,6 +54,7 @@ namespace TimHanewich.Investing.Simulation
                     Holding eh = new Holding();
                     eh.Symbol = kvp.Key;
                     eh.Quantity = kvp.Value;
+                    eh.AverageCostBasis = totalBought[kvp.Key] > 0 ? totalCost[kvp.Key] / totalBought[kvp.Key] : 0;
                     holdings.Add(eh);
                 }
             }
