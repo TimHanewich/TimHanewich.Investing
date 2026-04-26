@@ -113,7 +113,7 @@ namespace TimHanewich.Investing.Simulation
                 EquityTransactionLog.Add(et);
 
                 //Deduct cash
-                Cash = Cash - cash_needed;
+                EditCash(cash_needed * -1, CashTransactionType.Transaction);
 
             }
             else if (order_type == TransactionType.Sell)
@@ -150,13 +150,13 @@ namespace TimHanewich.Investing.Simulation
                 EquityTransactionLog.Add(et);
 
                 //Credit cash
-                Cash = Cash + (quantity * e.Summary.Price);
+                EditCash(quantity * e.Summary.Price, CashTransactionType.Transaction);
             }
 
             //Take out the commission (if any)
             if (TradeCost > 0)
             {
-                EditCash(TradeCost * -1, CashTransactionType.TradingRelatedCharge);
+                EditCash(TradeCost * -1, CashTransactionType.Expense);
             }
         }
     }
