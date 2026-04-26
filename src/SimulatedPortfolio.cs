@@ -16,7 +16,7 @@ namespace TimHanewich.Investing.Simulation
         public List<CashTransaction> CashTransactionLog { get; set; }
         public float TradeCost {get; set;} //i.e. commission
 
-        public EquityHolding[] EquityHoldings
+        public Holding[] EquityHoldings
         {
             get
             {
@@ -37,12 +37,12 @@ namespace TimHanewich.Investing.Simulation
                         quantities[sym] -= et.Quantity;
                     }
                 }
-                List<EquityHolding> holdings = new List<EquityHolding>();
+                List<Holding> holdings = new List<Holding>();
                 foreach (var kvp in quantities)
                 {
                     if (kvp.Value > 0)
                     {
-                        EquityHolding eh = new EquityHolding();
+                        Holding eh = new Holding();
                         eh.Symbol = kvp.Key;
                         eh.Quantity = kvp.Value;
                         holdings.Add(eh);
@@ -123,8 +123,8 @@ namespace TimHanewich.Investing.Simulation
             else if (order_type == TransactionType.Sell)
             {
                 //Find our holding
-                EquityHolding eh = null;
-                foreach (EquityHolding ceh in EquityHoldings)
+                Holding eh = null;
+                foreach (Holding ceh in EquityHoldings)
                 {
                     if (ceh.Symbol.ToUpper() == symbol.ToUpper())
                     {
@@ -168,7 +168,7 @@ namespace TimHanewich.Investing.Simulation
         {
             //Get list of all stocks
             List<string> stocks = new List<string>();
-            foreach (EquityHolding eh in EquityHoldings)
+            foreach (Holding eh in EquityHoldings)
             {
                 if (stocks.Contains(eh.Symbol.Trim().ToUpper()) == false)
                 {
@@ -188,7 +188,7 @@ namespace TimHanewich.Investing.Simulation
 
             //Add up our portfolio value
             float PortValue = 0;
-            foreach (EquityHolding eh in EquityHoldings)
+            foreach (Holding eh in EquityHoldings)
             {
                 foreach (EquitySummaryData esd in esds)
                 {
@@ -227,7 +227,7 @@ namespace TimHanewich.Investing.Simulation
 
             //Get a list of all equities
             List<string> Stocks = new List<string>();
-            foreach (EquityHolding eh in EquityHoldings)
+            foreach (Holding eh in EquityHoldings)
             {
                 if (Stocks.Contains(eh.Symbol.Trim().ToUpper()) == false)
                 {
@@ -288,8 +288,8 @@ namespace TimHanewich.Investing.Simulation
                 }
 
                 //Find the right equity holding
-                EquityHolding eh = null;
-                foreach (EquityHolding h in EquityHoldings)
+                Holding eh = null;
+                foreach (Holding h in EquityHoldings)
                 {
                     if (h.Symbol.Trim().ToUpper() == s.Trim().ToUpper())
                     {

@@ -2,7 +2,7 @@ using System;
 
 namespace TimHanewich.Investing.Simulation
 {
-    public class EquityHolding
+    public class Holding
     {
         public string Symbol { get; set; }
         public int Quantity { get; set; }
