@@ -10,6 +10,14 @@ A .NET library for simulating stock portfolio trading with live market data from
 - **Performance Tracking** — Calculate gains, losses, and profit on your portfolio using real-time prices
 - **Trade Costs** — Configurable per-trade expense (commission) that is automatically deducted
 
+## Installation
+
+Install from [NuGet](https://www.nuget.org/packages/TimHanewich.Investing/):
+
+```bash
+dotnet add package TimHanewich.Investing
+```
+
 ## Quick Start
 
 ```csharp
