@@ -4,7 +4,25 @@
     <TargetFramework>net10.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+
+    <!-- NuGet package metadata -->
+    <PackageId>TimHanewich.Investing</PackageId>
+    <Version>1.0.0</Version>
+    <Authors>Tim Hanewich</Authors>
+    <Description>A .NET library for simulating stock portfolio trading with live market data from Yahoo Finance.</Description>
+    <PackageReadmeFile>readme.md</PackageReadmeFile>
+    <PackageIcon>BullIcon.jpg</PackageIcon>
+    <PackageLicenseExpression>MIT</PackageLicenseExpression>
+    <PackageProjectUrl>https://github.com/TimHanewich/TimHanewich.Investing</PackageProjectUrl>
+    <RepositoryUrl>https://github.com/TimHanewich/TimHanewich.Investing</RepositoryUrl>
+    <RepositoryType>git</RepositoryType>
+    <PackageTags>investing;stocks;portfolio;simulation;trading;yahoo-finance</PackageTags>
   </PropertyGroup>
+
+  <ItemGroup>
+    <None Include="..\readme.md" Pack="true" PackagePath="\" />
+    <None Include="BullIcon.jpg" Pack="true" PackagePath="\" />
+  </ItemGroup>
 
   <ItemGroup>
     <PackageReference Include="Yahoo.Finance" Version="4.3.6" />
