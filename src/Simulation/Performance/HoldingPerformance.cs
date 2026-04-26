@@ -2,15 +2,23 @@ using System;
 
 namespace TimHanewich.Investing.Simulation.Performance
 {
-    public class HoldingPerformance : Holding
+    public class HoldingPerformance
     {
-        public float CurrentPrice {get; set;}
+        
+        public Holding Holding {get; set;}     //The holding
+        public float CurrentPrice {get; set;}  //The current price of the holding (i.e. stock price)
+
+        public HoldingPerformance(Holding holding, float current_price)
+        {
+            Holding = holding;
+            CurrentPrice = current_price;
+        }
 
         public float Gain
         {
             get
             {
-                return (CurrentPrice - CostBasis) * Quantity;
+                return (CurrentPrice - Holding.CostBasis) * Holding.Quantity;
             }
         }
 
@@ -18,7 +26,7 @@ namespace TimHanewich.Investing.Simulation.Performance
         {
             get
             {
-                return Gain / (Quantity * CostBasis);
+                return Gain / (Holding.Quantity * Holding.CostBasis);
             }
         }
     }
