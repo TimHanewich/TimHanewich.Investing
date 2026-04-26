@@ -16,13 +16,7 @@ namespace TimHanewich.Investing.Simulation.Performance
             {
                 Equity eq = Equity.Create(h.Symbol);
                 await eq.DownloadSummaryAsync();
-
-                HoldingPerformance hp = new HoldingPerformance();
-                hp.Symbol = h.Symbol;
-                hp.Quantity = h.Quantity;
-                hp.CostBasis = h.CostBasis;
-                hp.CurrentPrice = eq.Summary.Price;
-                performances.Add(hp);
+                performances.Add(new HoldingPerformance(h, eq.Summary.Price));
             }
 
             PortflioPerformance pp = new PortflioPerformance();
