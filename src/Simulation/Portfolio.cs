@@ -181,7 +181,7 @@ namespace TimHanewich.Investing.Simulation
 
             // Holding transactions
             sb.AppendLine("");
-            sb.AppendLine("--- Holding Transactions (" + HoldingTransactionLog.Count + ") ---");
+            sb.AppendLine("--- Transactions (" + HoldingTransactionLog.Count + ") ---");
             if (HoldingTransactionLog.Count == 0)
             {
                 sb.AppendLine("  (none)");
@@ -190,20 +190,6 @@ namespace TimHanewich.Investing.Simulation
             {
                 string time = DateTimeOffset.FromUnixTimeSeconds(ht.TransactedAt).ToString("yyyy-MM-dd HH:mm:ss");
                 sb.AppendLine("  [" + time + "] " + ht.OrderType + " " + ht.Quantity + " " + ht.Symbol + " @ $" + ht.ExecutedPrice.ToString("#,##0.00"));
-            }
-
-            // Cash transactions
-            sb.AppendLine("");
-            sb.AppendLine("--- Cash Transactions (" + CashTransactionLog.Count + ") ---");
-            if (CashTransactionLog.Count == 0)
-            {
-                sb.AppendLine("  (none)");
-            }
-            foreach (CashTransaction ct in CashTransactionLog)
-            {
-                string time = DateTimeOffset.FromUnixTimeSeconds(ct.TransactedAt).ToString("yyyy-MM-dd HH:mm:ss");
-                string sign = ct.CashChange >= 0 ? "+" : "";
-                sb.AppendLine("  [" + time + "] " + ct.ChangeType + ": " + sign + "$" + ct.CashChange.ToString("#,##0.00"));
             }
 
             return sb.ToString().TrimEnd();
