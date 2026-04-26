@@ -21,40 +21,37 @@ namespace TimHanewich.Investing.Simulation
             TradeCost = 0.00f;
         }
 
-        public Holding[] Holdings
+        public Holding[] Holdings()
         {
-            get
+            Dictionary<string, int> quantities = new Dictionary<string, int>();
+            foreach (EquityTransaction et in EquityTransactionLog)
             {
-                Dictionary<string, int> quantities = new Dictionary<string, int>();
-                foreach (EquityTransaction et in EquityTransactionLog)
+                string sym = et.Symbol.ToUpper().Trim();
+                if (!quantities.ContainsKey(sym))
                 {
-                    string sym = et.Symbol.ToUpper().Trim();
-                    if (!quantities.ContainsKey(sym))
-                    {
-                        quantities[sym] = 0;
-                    }
-                    if (et.OrderType == TransactionType.Buy)
-                    {
-                        quantities[sym] += et.Quantity;
-                    }
-                    else if (et.OrderType == TransactionType.Sell)
-                    {
-                        quantities[sym] -= et.Quantity;
-                    }
+                    quantities[sym] = 0;
                 }
-                List<Holding> holdings = new List<Holding>();
-                foreach (var kvp in quantities)
+                if (et.OrderType == TransactionType.Buy)
                 {
-                    if (kvp.Value > 0)
-                    {
-                        Holding eh = new Holding();
-                        eh.Symbol = kvp.Key;
-                        eh.Quantity = kvp.Value;
-                        holdings.Add(eh);
-                    }
+                    quantities[sym] += et.Quantity;
                 }
-                return holdings.ToArray();
+                else if (et.OrderType == TransactionType.Sell)
+                {
+                    quantities[sym] -= et.Quantity;
+                }
             }
+            List<Holding> holdings = new List<Holding>();
+            foreach (var kvp in quantities)
+            {
+                if (kvp.Value > 0)
+                {
+                    Holding eh = new Holding();
+                    eh.Symbol = kvp.Key;
+                    eh.Quantity = kvp.Value;
+                    holdings.Add(eh);
+                }
+            }
+            return holdings.ToArray();
         }
 
         public void EditCash(float cash_edit, CashTransactionType ctt = CashTransactionType.Edit)
@@ -116,7 +113,7 @@ namespace TimHanewich.Investing.Simulation
             {
                 //Find our holding
                 Holding eh = null;
-                foreach (Holding ceh in Holdings)
+                foreach (Holding ceh in Holdings())
                 {
                     if (ceh.Symbol.ToUpper() == symbol.ToUpper())
                     {
@@ -160,7 +157,7 @@ namespace TimHanewich.Investing.Simulation
         {
             //Get list of all stocks
             List<string> stocks = new List<string>();
-            foreach (Holding eh in Holdings)
+            foreach (Holding eh in Holdings())
             {
                 if (stocks.Contains(eh.Symbol.Trim().ToUpper()) == false)
                 {
@@ -180,7 +177,7 @@ namespace TimHanewich.Investing.Simulation
 
             //Add up our portfolio value
             float PortValue = 0;
-            foreach (Holding eh in Holdings)
+            foreach (Holding eh in Holdings())
             {
                 foreach (EquitySummaryData esd in esds)
                 {
@@ -212,14 +209,14 @@ namespace TimHanewich.Investing.Simulation
             List<HoldingPerformance> ToReturn = new List<HoldingPerformance>();
 
             //Check if there are no holdings
-            if (Holdings.Length == 0)
+            if (Holdings().Length == 0)
             {
                 return ToReturn.ToArray(); 
             }
 
             //Get a list of all equities
             List<string> Stocks = new List<string>();
-            foreach (Holding eh in Holdings)
+            foreach (Holding eh in Holdings())
             {
                 if (Stocks.Contains(eh.Symbol.Trim().ToUpper()) == false)
                 {
@@ -281,7 +278,7 @@ namespace TimHanewich.Investing.Simulation
 
                 //Find the right equity holding
                 Holding eh = null;
-                foreach (Holding h in Holdings)
+                foreach (Holding h in Holdings())
                 {
                     if (h.Symbol.Trim().ToUpper() == s.Trim().ToUpper())
                     {
