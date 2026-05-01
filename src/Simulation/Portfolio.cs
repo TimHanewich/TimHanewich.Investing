@@ -147,6 +147,30 @@ namespace TimHanewich.Investing.Simulation
                 EditCash(TradeCost * -1, CashTransactionType.Expense);
             }
         }
-        
+
+        public void Buy(string symbol, int quantity, float unit_price)
+        {
+            try
+            {
+                Trade(symbol, quantity, unit_price, TransactionType.Buy);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Attempt to buy " + quantity.ToString() + " shares of " + symbol + " failed: " + ex.Message);
+            }
+        }
+
+        public void Sell(string symbol, int quantity, float unit_price)
+        {
+            try
+            {
+                Trade(symbol, quantity, unit_price, TransactionType.Sell);
+            }
+            catch (Exception ex)
+            {
+                throw new Exception("Attempt to sell " + quantity.ToString() + " shares of " + symbol + " failed: " + ex.Message);
+            }
+        }
+
     }
 }
