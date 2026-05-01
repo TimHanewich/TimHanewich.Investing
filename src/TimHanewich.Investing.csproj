@@ -24,8 +24,4 @@
     <None Include="BullIcon.jpg" Pack="true" PackagePath="\" />
   </ItemGroup>
 
-  <ItemGroup>
-    <PackageReference Include="Yahoo.Finance" Version="4.3.6" />
-  </ItemGroup>
-
 </Project>
