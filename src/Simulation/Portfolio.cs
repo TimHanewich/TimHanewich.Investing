@@ -53,7 +53,8 @@ namespace TimHanewich.Investing.Simulation
                     Holding eh = new Holding();
                     eh.Symbol = kvp.Key;
                     eh.Quantity = kvp.Value;
-                    eh.CostBasis = totalBought[kvp.Key] > 0 ? totalCost[kvp.Key] / totalBought[kvp.Key] : 0;
+                    float avgPricePerShare = totalCost[kvp.Key] / totalBought[kvp.Key];
+                    eh.CostBasis = avgPricePerShare * kvp.Value;
                     holdings.Add(eh);
                 }
             }
