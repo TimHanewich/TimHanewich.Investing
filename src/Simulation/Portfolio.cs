@@ -1,7 +1,6 @@
 using System;
 using System.Collections.Generic;
 using System.Threading.Tasks;
-using Yahoo.Finance;
 using TimHanewich.Investing;
 
 namespace TimHanewich.Investing.Simulation
@@ -81,23 +80,12 @@ namespace TimHanewich.Investing.Simulation
             CashTransactionLog.Add(ct);
         }
 
-        public async Task TradeAsync(string symbol, int quantity, TransactionType order_type)
-        {
-            Equity e = Equity.Create(symbol);
-            try
-            {
-                await e.DownloadSummaryAsync();
-            }
-            catch
-            {
-                throw new Exception("Critical error while fetching equity '" + symbol + "'.  Does this equity exist?");
-            }
-            
-
+        public async Task TradeAsync(string symbol, int quantity, float unit_price, TransactionType order_type)
+        {        
             if (order_type == TransactionType.Buy)
             {
                 //Be sure we have enough cash to buy
-                float cash_needed = e.Summary.Price * quantity;
+                float cash_needed = unit_price * quantity;
                 if (Cash < cash_needed)
                 {
                     throw new Exception("You do not have enough cash to execute this buy order of " + symbol.ToUpper() + ".  Cash needed: $" + cash_needed.ToString("#,##0.00") + ".  Cash balance: $" + Cash.ToString("#,##0.00"));
@@ -109,7 +97,7 @@ namespace TimHanewich.Investing.Simulation
                 et.Symbol = symbol.ToUpper().Trim();
                 et.OrderType = TransactionType.Buy;
                 et.Quantity = quantity;
-                et.ExecutedPrice = e.Summary.Price;
+                et.ExecutedPrice = unit_price;
                 HoldingTransactionLog.Add(et);
 
                 //Deduct cash
@@ -119,7 +107,7 @@ namespace TimHanewich.Investing.Simulation
             else if (order_type == TransactionType.Sell)
             {
                 //Find our holding
-                Holding eh = null;
+                Holding eh = null!;
                 foreach (Holding ceh in Holdings())
                 {
                     if (ceh.Symbol.ToUpper() == symbol.ToUpper())
@@ -146,11 +134,11 @@ namespace TimHanewich.Investing.Simulation
                 et.Symbol = symbol.ToUpper().Trim();
                 et.OrderType = TransactionType.Sell;
                 et.Quantity = quantity;
-                et.ExecutedPrice = e.Summary.Price;
+                et.ExecutedPrice = unit_price;
                 HoldingTransactionLog.Add(et);
 
                 //Credit cash
-                EditCash(quantity * e.Summary.Price, CashTransactionType.Transaction);
+                EditCash(quantity * unit_price, CashTransactionType.Transaction);
             }
 
             //Take out the commission (if any)
