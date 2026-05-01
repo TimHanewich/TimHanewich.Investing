@@ -1,8 +1,8 @@
 ﻿using System;
 using TimHanewich.Investing;
 using TimHanewich.Investing.Simulation;
+using System;
 using Newtonsoft.Json;
-using TimHanewich.Investing.Simulation.Performance;
 
 namespace Testing
 {
@@ -16,45 +16,15 @@ namespace Testing
 
         public static async Task Test1()
         {
-            Portfolio sp = new Portfolio();
-            sp.TradeCost = 7;
-
-            sp.EditCash(500000);
-            sp.TradeAsync("BTC-USD", 1, TransactionType.Buy).Wait();
-
-            Console.Write("Waiting... ");
-            System.Threading.Tasks.Task.Delay(10_000).Wait();
-            Console.WriteLine(sp.ToString());
-            
-
-
-            Console.WriteLine("Calculating performance...");
-            PortflioPerformance pp = sp.CalculatePerformanceAsync().Result;
-            Console.WriteLine(pp.ToString());
-        }
-
-        public static async Task Test2()
-        {
             Portfolio p = new Portfolio();
+            p.EditCash(100_000.00f, CashTransactionType.Edit);
+            p.Trade("TIMH", 10, 100.00f, TransactionType.Buy);
+            p.Trade("TIMH", 20, 200.00f, TransactionType.Buy);
+            Console.WriteLine(JsonConvert.SerializeObject(p.Holdings(), Formatting.Indented));
 
-            HoldingTransaction ht = new HoldingTransaction();
-            ht.Symbol = "PG";
-            ht.Quantity = 5;
-            ht.ExecutedPrice = 100.00f;
-            ht.TransactedAt = 0;
-            p.HoldingTransactionLog.Add(ht);
-
-            HoldingTransaction ht2 = new HoldingTransaction();
-            ht2.Symbol = "PG";
-            ht2.Quantity = 5;
-            ht2.ExecutedPrice = 200.00f;
-            ht2.TransactedAt = 0;
-            p.HoldingTransactionLog.Add(ht2);
-
-            Console.WriteLine(p.ToString());
-
-            PortflioPerformance pp = await p.CalculatePerformanceAsync();
-            Console.WriteLine(pp.ToString());
+            p.Trade("TIMH", 25, 300.00f, TransactionType.Sell);
+            Console.WriteLine(JsonConvert.SerializeObject(p.Holdings(), Formatting.Indented));
         }
+
     }
 }

@@ -53,8 +53,7 @@ namespace TimHanewich.Investing.Simulation
                     Holding eh = new Holding();
                     eh.Symbol = kvp.Key;
                     eh.Quantity = kvp.Value;
-                    float avgPricePerShare = totalCost[kvp.Key] / totalBought[kvp.Key];
-                    eh.CostBasis = avgPricePerShare * kvp.Value;
+                    eh.CostBasisPerShare = totalCost[kvp.Key] / totalBought[kvp.Key];
                     holdings.Add(eh);
                 }
             }
@@ -81,7 +80,7 @@ namespace TimHanewich.Investing.Simulation
             CashTransactionLog.Add(ct);
         }
 
-        public async Task TradeAsync(string symbol, int quantity, float unit_price, TransactionType order_type)
+        public void Trade(string symbol, int quantity, float unit_price, TransactionType order_type)
         {        
             if (order_type == TransactionType.Buy)
             {
