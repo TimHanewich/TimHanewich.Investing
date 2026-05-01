@@ -93,7 +93,7 @@ namespace TimHanewich.Investing.Simulation
 
                 //Log the transaction
                 HoldingTransaction et = new HoldingTransaction();
-                et.TransactedAt = DateTimeOffset.UtcNow.ToUnixTimeSeconds();
+                et.TransactedAt = DateTimeOffset.Now;
                 et.Symbol = symbol.ToUpper().Trim();
                 et.OrderType = TransactionType.Buy;
                 et.Quantity = quantity;
@@ -147,40 +147,6 @@ namespace TimHanewich.Investing.Simulation
                 EditCash(TradeCost * -1, CashTransactionType.Expense);
             }
         }
-        public override string ToString()
-        {
-            System.Text.StringBuilder sb = new System.Text.StringBuilder();
-
-            sb.AppendLine("=== Portfolio ===");
-            sb.AppendLine("Cash: $" + Cash.ToString("#,##0.00"));
-
-            // Holdings
-            Holding[] holdings = Holdings();
-            sb.AppendLine("");
-            sb.AppendLine("--- Holdings (" + holdings.Length + ") ---");
-            if (holdings.Length == 0)
-            {
-                sb.AppendLine("  (none)");
-            }
-            foreach (Holding h in holdings)
-            {
-                sb.AppendLine("  " + h.Symbol + ": " + h.Quantity + " shares @ $" + h.CostBasis.ToString("#,##0.00") + " cost basis");
-            }
-
-            // Holding transactions
-            sb.AppendLine("");
-            sb.AppendLine("--- Transactions (" + HoldingTransactionLog.Count + ") ---");
-            if (HoldingTransactionLog.Count == 0)
-            {
-                sb.AppendLine("  (none)");
-            }
-            foreach (HoldingTransaction ht in HoldingTransactionLog)
-            {
-                string time = DateTimeOffset.FromUnixTimeSeconds(ht.TransactedAt).ToString("yyyy-MM-dd HH:mm:ss");
-                sb.AppendLine("  [" + time + "] " + ht.OrderType + " " + ht.Quantity + " " + ht.Symbol + " @ $" + ht.ExecutedPrice.ToString("#,##0.00"));
-            }
-
-            return sb.ToString().TrimEnd();
-        }
+        
     }
 }
