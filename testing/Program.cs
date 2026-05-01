@@ -18,11 +18,11 @@ namespace Testing
         {
             Portfolio p = new Portfolio();
             p.EditCash(100_000.00f, CashTransactionType.Edit);
-            p.Trade("TIMH", 10, 100.00f, TransactionType.Buy);
-            p.Trade("TIMH", 20, 200.00f, TransactionType.Buy);
+            p.Buy("TIMH", 10, 100.00f);
+            p.Buy("TIMH", 20, 200.00f);
             Console.WriteLine(JsonConvert.SerializeObject(p.Holdings(), Formatting.Indented));
 
-            p.Trade("TIMH", 25, 300.00f, TransactionType.Sell);
+            p.Sell("TIMH", 25, 300.00f);
             Console.WriteLine(JsonConvert.SerializeObject(p.Holdings(), Formatting.Indented));
         }
 
